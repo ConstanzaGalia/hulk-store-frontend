@@ -17,6 +17,7 @@ const Navbar = ({ user, handleUserLogin}) => {
 
   const logout = () => {
     removeLocalStorage('token');
+    removeLocalStorage("user");
     handleUserLogin(null);
     history.push('/');
     window.scrollTo(0, 0);

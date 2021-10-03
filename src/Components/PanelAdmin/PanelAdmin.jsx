@@ -32,11 +32,15 @@ const PanelAdmin = ({ handleUserLogin }) => {
   
   const logout = () => {
     removeLocalStorage("token");
+    removeLocalStorage("user");
     handleUserLogin(null);
     history.push("/");
     window.scrollTo(0, 0);
   };
 
+  const addProduct = () => {
+    history.push(`/panelAdmin/nuevoProducto`);
+  }
   return (
     <>
       <Row className="navbar">
@@ -68,6 +72,7 @@ const PanelAdmin = ({ handleUserLogin }) => {
             className="btnNavbar btnAddProduct"
             shape="round"
             icon={<PlusCircleOutlined />}
+            onClick={addProduct}
           >
             Agregar Producto
           </Button>
