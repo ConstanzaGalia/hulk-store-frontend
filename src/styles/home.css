@@ -19,6 +19,9 @@
   margin: 5px;
   float: right;
 }
+.nameUser {
+  color:white;
+}
 /* Slider */
 .slider {
   width: 100%;

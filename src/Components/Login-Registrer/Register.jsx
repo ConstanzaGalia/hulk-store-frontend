@@ -18,10 +18,11 @@ const Register = ({handleUserLogin}) => {
       handleUserLogin(user);
       setLocalStorage('token', user.JWT);
       history.push('/');
-      setLoading(false);
       successMessage('Usuario registrado exitosamente');
     } catch (error) {
       errorMessage('Hubo un problema con el registro, intente nuevamente', 3);
+    }finally{
+      setLoading(false);
     }
   }
   return (

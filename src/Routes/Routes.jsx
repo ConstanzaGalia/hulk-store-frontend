@@ -6,19 +6,18 @@ import Register from '../Components/Login-Registrer/Register';
 import {useState} from 'react';
 
 const Routes = () => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState();
 
   const handleUserLogin = (user) => {
     setUser(user);
   };
-  console.log(user);
   return (  
     <Switch>
       <Route path='/register'> 
         <Register handleUserLogin={handleUserLogin}/>
       </Route>
       <Route path='/'> 
-        <Home user={user}/>
+        <Home user={user} handleUserLogin={handleUserLogin}/>
       </Route>
     </Switch>
   )

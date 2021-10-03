@@ -1,9 +1,27 @@
 import { Row, Col, Button } from "antd";
 import LogoNavbar from "../../img/logo.png";
-import {UserAddOutlined, LoginOutlined} from '@ant-design/icons';
-import {Link} from 'react-router-dom';
+import {
+  UserAddOutlined,
+  LoginOutlined,
+  ShoppingCartOutlined,
+} from "@ant-design/icons";
+import { Link, useHistory } from "react-router-dom";
+import { removeLocalStorage } from "../localStorageHelper/localHelper";
+import {useState} from 'react';
+import LoginModal from '../Login-Registrer/LoginModal';
 
-const Navbar = () => {
+const Navbar = ({ user, handleUserLogin}) => {
+  const history = useHistory();
+  const [modalLogin, setModalLogin] = useState(false);
+  const handleToggleLogin = () => setModalLogin((state) => !state)
+
+  const logout = () => {
+    removeLocalStorage('token');
+    handleUserLogin(null);
+    history.push('/');
+    window.scrollTo(0, 0);
+  }
+
   return (
     <>
       <Row className="navbar">
@@ -16,16 +34,46 @@ const Navbar = () => {
           <h1>Hulk Store</h1>
         </Col>
         <Col span={8} className="marginTop">
-        <Button className="btnNavbar" shape="round" icon={<LoginOutlined />}>
-          Login
-        </Button>
-        <Link to='/register'>
-        <Button className="btnNavbar" shape="round" icon={<UserAddOutlined />}>
-          Registro
-        </Button>
-        </Link>
+          {!user ? (
+            <>
+              <Button
+                className="btnNavbar"
+                shape="round"
+                icon={<LoginOutlined />}
+                onClick={handleToggleLogin}
+              >
+                Login
+              </Button>
+              <Link to="/register">
+                <Button
+                  className="btnNavbar"
+                  shape="round"
+                  icon={<UserAddOutlined />}
+                >
+                  Registro
+                </Button>
+              </Link>
+            </>
+          ) : (
+            <>
+              <Button
+                className="btnNavbar"
+                shape="round"
+                icon={<LoginOutlined />}
+                onClick={()=> logout()}
+              >
+                Cerrar sesión
+              </Button>
+              <Button
+                className="btnNavbar"
+                shape="round"
+                icon={<ShoppingCartOutlined />}
+              >{user?.data?.fullName}</Button>
+            </>
+          )}
         </Col>
       </Row>
+      <LoginModal modalLogin={modalLogin} handleToggleLogin={handleToggleLogin} handleUserLogin={handleUserLogin}/>
     </>
   );
 };
