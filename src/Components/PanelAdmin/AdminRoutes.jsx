@@ -10,6 +10,9 @@ const AdminRoutes = ({handleUserLogin, user}) => {
   }
   return (  
     <Switch>
+      <Route path={`${path}/editarProducto/:id`}> 
+        <Products handleUserLogin={handleUserLogin}/>
+      </Route>
       <Route path={`${path}/nuevoProducto`}> 
         <Products handleUserLogin={handleUserLogin}/>
       </Route>

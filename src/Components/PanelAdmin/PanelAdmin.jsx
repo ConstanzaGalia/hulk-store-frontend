@@ -19,7 +19,8 @@ const PanelAdmin = ({ handleUserLogin }) => {
         setIsLoading(true);
         const res = await clientAxios.get("/products");
         const products = res.data;
-        setDataProducts(products);
+        const activeProducts = products.filter(product => !product.hasOwnProperty('deletedAt'));
+        setDataProducts(activeProducts);
       } catch (error) {
         errorMessage("Los datos no están disponibles en este momento");
       } finally {
@@ -80,7 +81,7 @@ const PanelAdmin = ({ handleUserLogin }) => {
       </Row>
       <Row className="rowTable">
         <Col span={22} offset={1}>
-          <TableProducts isLoading={isLoading} dataProducts={dataProducts} />
+          <TableProducts isLoading={isLoading} dataProducts={dataProducts} setDataProducts={setDataProducts}/>
         </Col>
       </Row>
     </>

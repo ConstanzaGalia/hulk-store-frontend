@@ -1,7 +1,12 @@
 import { Table, Button, Popconfirm } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import clientAxios from "../../config/clientAxios";
+import { errorMessage } from "../messageHelper/messageHelper";
+import { useHistory, useRouteMatch} from "react-router-dom";
 
-const TableProducts = ({ isLoading, dataProducts }) => {
+const TableProducts = ({ isLoading, dataProducts, setDataProducts }) => {
+  const history = useHistory();
+  const {path} = useRouteMatch();
   const columns = [
     {
       title: "Imágen",
@@ -41,12 +46,12 @@ const TableProducts = ({ isLoading, dataProducts }) => {
             <Button
               style={{ border: "none" }}
               size="small"
-              // onClick={() => handleEditUser(key)}
+              onClick={() => editProduct(key)}
               icon={<EditOutlined />}
             />
             <Popconfirm
               title="¿Seguro desea eliminar el producto?"
-              // onConfirm={() => deleteUser(key)}
+              onConfirm={() => deleteProduct(key)}
               okText="Si"
               cancelText="No"
             >
@@ -61,6 +66,24 @@ const TableProducts = ({ isLoading, dataProducts }) => {
       },
     },
   ];
+
+  const deleteProduct = async (id) => {
+    try {
+      const res = await clientAxios.delete(`/products/${id}`);
+      const productDeleted = res.data._id;
+      const filteredProducts = dataProducts.filter(
+        (product) => product._id !== productDeleted
+      );
+      setDataProducts(filteredProducts);
+    } catch (error) {
+      errorMessage("No se pudo eliminar el producto", 3);
+    }
+  };
+
+  const editProduct = (id) => {
+    history.push(`${path}/editarProducto/${id}`);
+    window.scrollTo(0, 0);
+  }
   return (
     <Table
       dataSource={dataProducts}
