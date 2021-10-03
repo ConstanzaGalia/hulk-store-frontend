@@ -1,0 +1,29 @@
+/* NavBar */
+.logoNavbar {
+  width: 80px;
+}
+.navbar {
+  padding: 30px;
+  background-color: black;
+}
+.navbar h1 {
+  color: white;
+}
+.marginTop {
+  margin-top: 20px;
+}
+.btnNavbar {
+  background-color: green !important;
+  border-color: green !important;
+  color: white !important;
+  margin: 5px;
+  float: right;
+}
+/* Slider */
+.slider {
+  width: 100%;
+}
+.slider-img{
+  width: 100%;
+}
+

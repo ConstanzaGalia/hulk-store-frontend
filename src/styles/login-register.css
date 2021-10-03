@@ -1,0 +1,20 @@
+.divRegister {
+  height: 100vh;
+  background-image: url(https://cdn.wallpapersafari.com/36/93/98QBcZ.jpg);
+  background-size: cover;
+}
+.titleRegister {
+  margin: 100px 150px;
+  font-size: 30px;
+  color: white;
+  font-weight: bold;
+}
+
+#formRegister {
+  margin-left: 150px;
+}
+
+.btn-register {
+  background-color: tomato !important;
+  border-color: tomato !important;
+}
