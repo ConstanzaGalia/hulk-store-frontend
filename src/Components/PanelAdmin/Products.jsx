@@ -1,12 +1,19 @@
 import { Row, Col, Button } from "antd";
 import { LoginOutlined, ArrowLeftOutlined } from "@ant-design/icons";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { removeLocalStorage } from "../localStorageHelper/localHelper";
 import LogoNavbar from "../../img/logo.png";
 import FormProduct from './FormProduct';
+import {useEffect, useState} from 'react';
+import clientAxios from "../../config/clientAxios";
+import { errorMessage } from "../messageHelper/messageHelper";
+import LoadingComponent from '../Loader/LoadingComponent';
 
 const Products = ({ handleUserLogin}) => {
+  const [editProduct, setEditProduct] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
+  const {id} = useParams();
 
   const logout = () => {
     removeLocalStorage("token");
@@ -15,8 +22,28 @@ const Products = ({ handleUserLogin}) => {
     history.push("/");
     window.scrollTo(0, 0);
   };
+
+  useEffect(() => {
+    if (id) {
+      const getProduct = async () => {
+        try {
+          setIsLoading(true);
+          const res = await clientAxios.get(`/products/${id}`);
+          const product = res.data;
+          setEditProduct(product);
+          setIsLoading(false);
+        } catch (error) {
+          errorMessage('Los datos del producto no están disponibles');
+        }finally{
+          setIsLoading(false);
+        }
+      }
+      getProduct();
+    }
+  }, [id]);
+
   return (
-    <>
+    <LoadingComponent isLoading={isLoading}>
       <Row className="navbar">
         <Col span={4}>
           <a href="/">
@@ -39,7 +66,7 @@ const Products = ({ handleUserLogin}) => {
       </Row>
       <Row className="rowTable">
         <Col span={12}>
-          <h2 className="titleProducts">Agregar Producto</h2>
+          <h2 className="titleProducts">{id ? 'Editar Producto' : 'Agregar Producto'}</h2>
         </Col>
         <Col span={12}>
           <Button
@@ -50,8 +77,8 @@ const Products = ({ handleUserLogin}) => {
           />
         </Col>
       </Row>
-      <FormProduct />
-    </>
+      <FormProduct editProduct={editProduct} id={id}/>
+    </LoadingComponent>
   );
 };
 
