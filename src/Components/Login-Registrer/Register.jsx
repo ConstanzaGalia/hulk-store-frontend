@@ -17,6 +17,7 @@ const Register = ({handleUserLogin}) => {
       const user = res.data;
       handleUserLogin(user);
       setLocalStorage('token', user.JWT);
+      setLocalStorage('user', user.data);
       history.push('/');
       successMessage('Usuario registrado exitosamente');
     } catch (error) {

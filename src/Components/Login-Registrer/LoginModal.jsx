@@ -17,6 +17,7 @@ const LoginModal = ({ modalLogin, handleToggleLogin, handleUserLogin }) => {
       const loggedUser = user.data;
       handleUserLogin(loggedUser);
       setLocalStorage("token", user.JWT);
+      setLocalStorage("user", loggedUser);
       setLoading(false);
       if (loggedUser && loggedUser.role === "admin") {
         successMessage("Bienvenido al panel administrador de Hulk Store");

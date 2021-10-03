@@ -4,11 +4,12 @@ import '../styles/home.css';
 import '../styles/login-register.css';
 import '../styles/admin.css';
 import Register from '../Components/Login-Registrer/Register';
-import PanelAdmin from '../Components/PanelAdmin/PanelAdmin';
+import AdminRoutes from '../Components/PanelAdmin/AdminRoutes';
 import {useState} from 'react';
+import {getLocalStorage} from '../Components/localStorageHelper/localHelper';
 
 const Routes = () => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(getLocalStorage('user'));
 
   const handleUserLogin = (user) => {
     setUser(user);
@@ -16,7 +17,7 @@ const Routes = () => {
   return (  
     <Switch>
       <Route path='/panelAdmin'> 
-        <PanelAdmin handleUserLogin={handleUserLogin} user={user}/>
+        <AdminRoutes handleUserLogin={handleUserLogin} user={user}/>
       </Route>
       <Route path='/register'> 
         <Register handleUserLogin={handleUserLogin}/>

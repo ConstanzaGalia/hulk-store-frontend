@@ -1,6 +1,6 @@
 import { Row, Col, Button } from "antd";
 import { LoginOutlined, PlusCircleOutlined } from "@ant-design/icons";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { removeLocalStorage } from "../localStorageHelper/localHelper";
 import LogoNavbar from "../../img/logo.png";
 import TableProducts from "./TableProducts";
@@ -8,9 +8,10 @@ import { useState, useEffect } from "react";
 import clientAxios from "../../config/clientAxios";
 import { errorMessage } from "../messageHelper/messageHelper";
 
-const PanelAdmin = ({ user, handleUserLogin }) => {
+const PanelAdmin = ({ handleUserLogin }) => {
   const [dataProducts, setDataProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -28,10 +29,7 @@ const PanelAdmin = ({ user, handleUserLogin }) => {
     fetchProducts();
   }, []);
 
-  const history = useHistory();
-  if (!user || user.role !== "admin") {
-    return <Redirect to="/" />;
-  }
+  
   const logout = () => {
     removeLocalStorage("token");
     handleUserLogin(null);
