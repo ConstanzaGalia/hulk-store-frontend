@@ -14,12 +14,20 @@ const LoginModal = ({ modalLogin, handleToggleLogin, handleUserLogin }) => {
       setLoading(true);
       const res = await clientAxios.post("/login", values);
       const user = res.data;
-      handleUserLogin(user);
+      const loggedUser = user.data;
+      handleUserLogin(loggedUser);
       setLocalStorage("token", user.JWT);
       setLoading(false);
-      handleToggleLogin();
-      history.push("/");
-      successMessage("Bienvenido a Hulk Store");
+      if (loggedUser && loggedUser.role === "admin") {
+        successMessage("Bienvenido al panel administrador de Hulk Store");
+        handleToggleLogin();
+        history.push("/panelAdmin");
+      }
+      if (loggedUser && loggedUser.role === "contact") {
+        successMessage("Bienvenido a Hulk Store");
+        handleToggleLogin();
+        history.push("/");
+      }
     } catch (error) {
       errorMessage("Hubo un problema al iniciar sesión, intente nuevamente", 3);
     } finally {
