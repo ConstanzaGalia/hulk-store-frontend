@@ -1,20 +1,31 @@
 import { Card, Row, Col, Button } from "antd";
-import {getLocalStorage} from '../localStorageHelper/localHelper';
-import {warningMessage, successMessage, errorMessage} from '../messageHelper/messageHelper';
-import clientAxios from '../../config/clientAxios';
+import { getLocalStorage } from "../localStorageHelper/localHelper";
+import {
+  warningMessage,
+  successMessage,
+  errorMessage,
+} from "../messageHelper/messageHelper";
+import {
+  ShoppingCartOutlined,
+} from "@ant-design/icons";
+import clientAxios from "../../config/clientAxios";
 const { Meta } = Card;
 
 const CardProduct = ({ product }) => {
+  const notStock = product.stock <= 0;
   const addToCart = async (id) => {
     try {
-      const userLoggedIn = getLocalStorage('token');
-      if (!userLoggedIn){
-        return warningMessage('Inicie sesión para comprar productos', 3);
+      const userLoggedIn = getLocalStorage("token");
+      if (!userLoggedIn) {
+        return warningMessage("Inicie sesión para comprar productos", 3);
       }
-      const res = await clientAxios.post('/cart', {productId: id, quantity: 1});
+      const res = await clientAxios.post("/cart", {
+        productId: id,
+        quantity: 1,
+      });
       successMessage(res.data);
-    } catch(error) {
-      errorMessage('No se pudo agregar al carrito', error.message)
+    } catch (error) {
+      errorMessage("No se pudo agregar al carrito", error.message);
     }
   };
   return (
@@ -31,13 +42,18 @@ const CardProduct = ({ product }) => {
           </p>
         </Col>
         <Col span={12}>
-          <Button
-            className="btnNavbar"
-            shape="round"
-            onClick={() => addToCart(product._id)}
-          >
-            Comprar
-          </Button>
+          {notStock ? (
+            <Button className="btnNavbar" shape="round" disabled>
+              Sin Stock
+            </Button>
+          ) : (
+            <Button
+              className="btnNavbar"
+              shape="round"
+              onClick={() => addToCart(product._id)}
+              icon={<ShoppingCartOutlined />}
+            />
+          )}
         </Col>
       </Row>
     </Card>
