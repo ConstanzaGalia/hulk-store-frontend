@@ -12,7 +12,7 @@ import clientAxios from "../../config/clientAxios";
 const { Meta } = Card;
 
 const CardProduct = ({ product }) => {
-  const notStock = product.stock <= 0;
+  const notStock = product.stock === 0;
   const addToCart = async (id) => {
     try {
       const userLoggedIn = getLocalStorage("token");
