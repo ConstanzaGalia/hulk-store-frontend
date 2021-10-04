@@ -5,6 +5,7 @@ import '../styles/login-register.css';
 import '../styles/admin.css';
 import Register from '../Components/Login-Registrer/Register';
 import AdminRoutes from '../Components/PanelAdmin/AdminRoutes';
+import Cart from '../Components/ShoppingCart/Cart';
 import {useState} from 'react';
 import {getLocalStorage} from '../Components/localStorageHelper/localHelper';
 
@@ -16,6 +17,9 @@ const Routes = () => {
   };
   return (  
     <Switch>
+      <Route path='/cart'> 
+        <Cart handleUserLogin={handleUserLogin} user={user}/>
+      </Route>
       <Route path='/panelAdmin'> 
         <AdminRoutes handleUserLogin={handleUserLogin} user={user}/>
       </Route>

@@ -23,6 +23,10 @@ const Navbar = ({ user, handleUserLogin}) => {
     window.scrollTo(0, 0);
   }
 
+  const goToCart = () => {
+    history.push('/cart');
+  }
+
   return (
     <>
       <Row className="navbar">
@@ -69,6 +73,7 @@ const Navbar = ({ user, handleUserLogin}) => {
                 className="btnNavbar"
                 shape="round"
                 icon={<ShoppingCartOutlined />}
+                onClick={()=>goToCart()}
               >{user?.data?.fullName}</Button>
             </>
           )}
