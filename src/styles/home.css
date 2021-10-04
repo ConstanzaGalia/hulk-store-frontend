@@ -45,5 +45,14 @@
 .totalCompra {
   float: right;
 }
-
+/* Footer */
+.footer{
+  height: 80px;
+  background-color: green;
+}
+.h4Footer{
+  color: white;
+  text-align: center;
+  margin-top:20px;
+}
 

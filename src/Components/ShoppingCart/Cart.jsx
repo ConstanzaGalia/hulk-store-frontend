@@ -4,6 +4,7 @@ import { errorMessage, successMessage } from "../messageHelper/messageHelper";
 import { useHistory } from "react-router-dom";
 import Navbar from "../Home/Navbar";
 import { useEffect, useState } from "react";
+import Footer from "../Home/Footer";
 const { Option } = Select;
 
 const Cart = ({ user, handleUserLogin }) => {
@@ -127,6 +128,7 @@ const Cart = ({ user, handleUserLogin }) => {
           </Form>
         </Col>
       </Row>
+      <Footer />
     </>
   );
 };
