@@ -61,7 +61,7 @@ const Register = ({handleUserLogin}) => {
             name="email"
             rules={[{ required: true, message: 'Campo obligatorio' }]}
           >
-            <Input />
+            <Input type="email"/>
           </Form.Item>
 
           <Form.Item
