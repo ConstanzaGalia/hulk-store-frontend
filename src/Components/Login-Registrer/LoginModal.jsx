@@ -69,7 +69,7 @@ const LoginModal = ({ modalLogin, handleToggleLogin, handleUserLogin }) => {
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" className="btn-login">
               Ingresar
             </Button>
           </Form.Item>

@@ -16,3 +16,16 @@
   border-color: green !important;
   color: white !important;
 }
+.card-container {
+  padding: 50px;
+  background-color: rgba(0, 128, 0, 0.781);
+  min-height: 100vh;
+}
+.tabs-container {
+  background-color:white;
+  min-height: 80vh;
+}
+.title-tab {
+  color: grey;
+  font-weight: bold;
+}
